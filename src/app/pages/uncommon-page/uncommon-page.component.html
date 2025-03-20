@@ -1,1 +1,89 @@
-<p>uncommon-page works!</p>,
+
+<section>
+  <h1 class="text-2xl font-bold">Pipes No tan comunes</h1>
+  <h3 class="text-xl font-bold"> pipes incluidos en angular</h3>
+</section>
+
+<div class="grid grid-cols-1  md:grid-cols-2 xl:grid-cols-3 gap-6">
+   <app-card title="i18nSelectpipe">
+   <p>Hola {{client().name}} es un placer {{client().gender | i18nSelect: invitationMap}}  </p>
+
+
+   <button class="btn btn-primary" (click)="changeClient()">Cambiar usuario</button>
+
+   </app-card>
+
+   <app-card title="i18nPluralpipe">
+
+     <p>Actualmente tenemos {{clients().length | i18nPlural: clientsMap()}} </p>
+
+    <button class="btn btn-primary"  [disabled]="clients().length === 0" (click)="deleteClient()">Eliminar cliente</button>
+
+    </app-card>
+
+    <app-card title="Slicepipe">
+      <p>Original</p>
+      <p>{{clients().join(', ')}} </p>
+      <b class="text-sm">Slice: 0:2</b>
+      <p>{{clients().slice(0,2)}} </p>
+      <b class="text-sm">Slice: 1:2</b>
+      <p>{{clients().slice(1,2)}} </p>
+      <b class="text-sm">Slice: 1:3</b>
+      <p>{{clients().slice(1,3)}} </p>
+
+     <button class="btn btn-primary"  [disabled]="clients().length === 0" (click)="deleteClient()">Eliminar cliente</button>
+
+     </app-card>
+
+     <app-card title="Jsonpipe">
+
+      <p>Actualmente tenemos {{clients() | json}} </p>
+      <pre class="text-xs">{{client() | json}} </pre>
+      <pre class="text-xs">{{clients().join(', ') | json}} </pre>
+
+
+
+     </app-card>
+
+     <app-card title="Jsonpipe">
+
+    <p>{{profile}} </p>
+
+    <ul>
+      @for (item of profile | keyvalue; track $index) {
+    <li>
+        <strong  class="text-primary">{{item.key }}: </strong>
+    <span>{{item.value }}</span>
+
+    </li>
+    }
+    </ul>
+
+
+     </app-card>
+
+
+
+     <app-card title="Asyncpipe">
+
+      <p>{{promiseValue | async}} </p>
+     @if (promiseValue | async; as value){
+      <p class="text-primary"> {{value}}</p>
+     }
+
+     <h3>observable</h3>
+     <p>{{myObservable | async}} </p>
+
+     @if (myObservable | async; as value){
+      <p class="text-primary"> valor : {{value}}</p>
+     } @else {
+      <p class="text-primary">Esperando datos</p>
+     }
+
+
+     </app-card>
+
+
+
+</div>
+

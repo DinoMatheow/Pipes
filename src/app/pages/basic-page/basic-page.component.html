@@ -132,8 +132,18 @@
 </div>
 
 
+<div class="divider">
+   <div class="divider-title"><h1>Locale Actual:
+  <span class="badge badge-secondary">{{currentLocale()}}</span>
+  </h1></div>
 
+</div>
 
+<div class="flex gap-2 justify-center">
+  <button class="btn btn-sm btn-primary" (click)="changeLocale('es')">Cambiar a españa</button>
+  <button class="btn btn-sm btn-primary" (click)="changeLocale('en')">changed english</button>
+  <button class="btn btn-sm btn-primary" (click)="changeLocale('ja')">changed japanese</button>
+</div>
 
 
 
