@@ -1,12 +1,79 @@
-<section>
-  <h1 class="text-2xl font-bold">Pipes No tan comunes</h1>
-  <h3 class="text-xl font-bold"> pipes incluidos en angular</h3>
-</section>
+<div class="container mx-auto">
 
-<div class="grid grid-cols-1  md:grid-cols-2 xl:grid-cols-3 gap-6">
-  <div class="card bg-base-200 shadow-md">
-    <div class="card-body">
-      <h2 class="card-title md-2">Contenido del padre</h2>
-    </div>
+
+  <section>
+    <h1 class="text-2xl font-bold">Pipes personalizados</h1>
+    <h3 class="text-xl font-bold"> pipes incluidos</h3>
+  </section>
+<div class="stats shadow">
+  <div class="stat">
+    <div class="stat-title">Toggle Case</div>
+    <div class="stat-value">{{name() | toggleCase: upperCase() }}</div>
+    <div class="stat-desc">{{name() }}</div>
+    <button (click)="upperCase.set(!upperCase())" class="btn btn-primary">Cambiar</button>
   </div>
 </div>
+</div>
+
+<div class="divider"></div>
+
+<section>
+  <h1 class="text-2xl font-bold">filtrados por {{searchQuery()}}  ordenador por {{sortBy()}}</h1>
+  <h3 class="text-xl font-bold"> pipes incluidos</h3>
+
+  <div class="flex gap-2 justify-end w-full">
+
+    <input type="text"
+    class="input input-bordered w-full max-w-xs"
+    placeholder="Buscar"
+    (input)="searchQuery.set(txtSearch.value)"
+    #txtSearch
+    >
+
+    <div class="flex gap-2">
+
+      <button class="btn btn-primary" (click)="sortBy.set('name')">Por nombre</button>
+      <button class="btn btn-secondary"  (click)="sortBy.set('canFly')">Por vuelo</button>
+      <button class="btn btn-accent" (click)="sortBy.set('color')">Por color</button>
+      <button class="btn btn-info" (click)="sortBy.set('creator')">Por creador</button>
+    </div>
+  </div>
+</section>
+
+<div class="overflow-x-auto w-full" >
+  <table class="table">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Can Fly</th>
+        <th>Color</th>
+        <th>Creator</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- row 1 -->
+
+
+      @for (hero of heroes() | heroFiltrer:searchQuery() | heroSortBy:sortBy(); track hero.id; let i = $index) {
+      <tr>
+        <th>{{i + 1}}</th>
+        <td>{{hero.name}}</td>
+        <td>
+
+          <span class="text-xs w-44"
+          [class.text-red-500]="hero.canFly"
+          [class.text-green-500]="!hero.canFly"
+          >
+          {{hero.canFly | canFly}}
+        </span>
+        </td>
+        <td [style.color]="hero.color | colorText">{{hero.color | heroColor | titlecase }}</td>
+        <td>{{hero.creator | heroCreate }}</td>
+      </tr>
+    }
+    </tbody>
+  </table>
+</div>
+
