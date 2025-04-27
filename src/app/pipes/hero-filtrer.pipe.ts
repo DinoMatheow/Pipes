@@ -11,7 +11,11 @@ export class HeroFiltrerPipe implements PipeTransform {
     if (!search) return value;
     search = search.toLowerCase();
 
-    return value.filter(
-      hero => hero.name.toLowerCase().includes(search));
+    return value.filter(hero =>
+      hero.name.toLowerCase().includes(search) ||
+      hero.color.toString().toLowerCase().includes(search) ||
+      hero.creator.toString().toLowerCase().includes(search) ||
+      (hero.canFly ? 'puede volar' : 'no puede volar').includes(search)
+    );
   }
 }

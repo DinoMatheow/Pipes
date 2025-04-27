@@ -8,19 +8,21 @@ import { Hero } from '../interfaces/hero.interfaces';
 export class HeroSortByPipe implements PipeTransform {
   transform(value: Hero[], sortBy: keyof Hero | null): Hero[] {
     if (!sortBy) return value;
-    switch (sortBy) {
-      case 'name':
-        return value.sort((a, b) => a.name.localeCompare(b.name));
-      case 'canFly':
-        return value.sort((a, b) => a.canFly ? 1 : -1);
-      case 'color':
-        return value.sort((a, b) => a.color - b.color);
-      case 'creator':
-        return value.sort((a, b) => a.creator - b.creator);
-      default:
-        return value;
-    }
-    return [];
+
+    return [...value].sort((a, b) => {
+      switch (sortBy) {
+        case 'name':
+          return a.name.localeCompare(b.name);
+        case 'canFly':
+          return a.canFly === b.canFly ? 0 : a.canFly ? 1 : -1;
+        case 'color':
+          return a.color.toString().localeCompare(b.color.toString());
+        case 'creator':
+          return a.creator.toString().localeCompare(b.creator.toString());
+        default:
+          return 0;
+      }
+    });
   }
 }
 
